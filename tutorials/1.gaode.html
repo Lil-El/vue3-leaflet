@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>高德</title>
+    <link rel="stylesheet" href="./leaflet/leaflet.css" />
+    <script src="./leaflet/leaflet.js"></script>
+    <style>
+      #mapDiv {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mapDiv"></div>
+    <script>
+      let LatLng = [39.773130218541105, 116.47677887890623];
+      let url =
+        "http://webrd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8";
+      let map = L.map("mapDiv", {
+        center: LatLng,
+        zoom: 16,
+      });
+      L.tileLayer(url, {
+        attribution: "yxd",
+        subdomains: "1234",
+        // maxZoom: 12,
+        tileSize: 512,
+        zoomOffset: -1,
+      }).addTo(map);
+      let marker = L.marker(LatLng).addTo(map);
+      let circle = L.circle(LatLng, {
+        color: "blue",
+        fillColor: "#f03",
+        fillOpacity: 0.5,
+        radius: 50,
+      }).addTo(map);
+      let polygon = L.polygon([
+        [39.773, 116.473],
+        [39.77, 116.47],
+        [39.77, 116.482],
+      ]).addTo(map);
+      marker.bindPopup(`<b>Hello Map</b>`).openPopup();
+      circle.bindPopup("I am a circle.");
+      polygon.bindPopup("I am a polygon.");
+      let popup = L.popup()
+        .setLatLng([39.7737, 116.4718])
+        .setContent("一个湖")
+        .openOn(map); // 代替addOn，自动关闭之前的popup
+
+      function onMapClick(e) {
+        popup.setLatLng(e.latlng).setContent("hhh").openOn(map);
+        console.log("You clicked the map at", e.latlng);
+      }
+      map.on("click", onMapClick);
+    </script>
+  </body>
+</html>

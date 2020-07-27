@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./leaflet/leaflet.css" />
+    <script src="./leaflet/leaflet.js"></script>
+    <style>
+      #mapDiv {
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mapDiv"></div>
+    <script>
+      let url =
+        "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZWxsaXNpb24iLCJhIjoiY2tkM2FvdmYzMTBvazJ6cDFrNGt4OXF6YiJ9.jnnV34kUMQc_wWnYl5SzDQ";
+      let leafletMap = L.map("mapDiv" /*, { center: [], zoom: 1 }*/).setView(
+        [41, 123],
+        5
+      );
+      L.tileLayer(url, {
+        maxZoom: 18,
+        id: "mapbox.streets",
+      }).addTo(leafletMap);
+    </script>
+  </body>
+</html>
