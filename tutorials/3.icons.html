@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>高德</title>
+    <link rel="stylesheet" href="../leaflet/leaflet.css" />
+    <script src="../leaflet/leaflet.js"></script>
+    <style>
+      #mapDiv {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mapDiv"></div>
+    <script>
+      let LatLng = [39.773130218541105, 116.47677887890623];
+      let url =
+        "http://webrd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8";
+      let map = L.map("mapDiv", {
+        center: LatLng,
+        zoom: 16,
+      });
+      L.tileLayer(url, {
+        attribution: "yxd",
+        subdomains: "1234",
+        maxZoom: 12,
+        tileSize: 256,
+        // zoomOffset: -1,
+      }).addTo(map);
+      // 继承
+      let IconClass = L.Icon.extend({
+        options: {
+          shadowUrl: "./imgs/leaf-shadow.png",
+          iconSize: [38, 95],
+          shadowSize: [50, 64],
+          iconAnchor: [22, 94],
+          shadowAnchor: [4, 62],
+          popupAnchor: [-3, -76],
+        },
+      });
+      let red = new IconClass({ iconUrl: "./imgs/leaf-red.png" });
+      L.marker(LatLng, {
+        icon: red,
+      })
+        .addTo(map)
+        .bindPopup("d");
+      // 直接;
+      let myIcon = L.icon({
+        iconUrl: "./imgs/leaf-orange.png",
+        shadowUrl: "./imgs/leaf-shadow.png",
+        iconSize: [38, 95],
+        shadowSize: [50, 64],
+        iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62], // the same for the shadow
+        popupAnchor: [-3, -76],
+      });
+      L.marker([39.77, 116.4], { icon: myIcon }).addTo(map);
+    </script>
+  </body>
+</html>

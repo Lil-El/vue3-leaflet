@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>高德</title>
-    <link rel="stylesheet" href="./leaflet/leaflet.css" />
-    <script src="./leaflet/leaflet.js"></script>
+    <link rel="stylesheet" href="../leaflet/leaflet.css" />
+    <script src="../leaflet/leaflet.js"></script>
     <style>
       #mapDiv {
         height: 100vh;
@@ -25,8 +25,8 @@
       L.tileLayer(url, {
         attribution: "yxd",
         subdomains: "1234",
-        // maxZoom: 12,
-        tileSize: 512,
+        maxZoom: 12,
+        tileSize: 256,
         zoomOffset: -1,
       }).addTo(map);
       let marker = L.marker(LatLng).addTo(map);

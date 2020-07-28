@@ -3,7 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>mobie</title>
+    <link rel="stylesheet" href="../leaflet/leaflet.css" />
+    <script src="../leaflet/leaflet.js"></script>
+    <style>
+      #mapDiv {
+        height: 100vh;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <div id="mapDiv"></div>
+    <script>
+      let LatLng = [39.773130218541105, 116.47677887890623];
+      let url =
+        "http://webrd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8";
+      let map = L.map("mapDiv").fitWorld();
+      let onLocationFound = (e) => {
+        console.log(e);
+      };
+      map.on("locationfound", onLocationFound);
+      let onLocationError = (e) => {
+        console.log("error:", e);
+      };
+      map.on("locationerror", onLocationError);
+      L.tileLayer(url, {
+        attribution: "yxd",
+        subdomains: "1234",
+        maxZoom: 12,
+        minZoom: 3,
+        tileSize: 256,
+      }).addTo(map);
+      map.locate({ setView: true, maxZoom: 5 });
+    </script>
+  </body>
 </html>
