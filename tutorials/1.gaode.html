@@ -25,9 +25,9 @@
       L.tileLayer(url, {
         attribution: "yxd",
         subdomains: "1234",
-        maxZoom: 12,
+        maxZoom: 20,
         tileSize: 256,
-        zoomOffset: -1,
+        // zoomOffset: -1,
       }).addTo(map);
       let marker = L.marker(LatLng).addTo(map);
       let circle = L.circle(LatLng, {
@@ -40,10 +40,11 @@
         [39.773, 116.473],
         [39.77, 116.47],
         [39.77, 116.482],
-      ]).addTo(map);
+      ])
+        .bindPopup("I am a polygon.")
+        .addTo(map);
       marker.bindPopup(`<b>Hello Map</b>`).openPopup();
       circle.bindPopup("I am a circle.");
-      polygon.bindPopup("I am a polygon.");
       let popup = L.popup()
         .setLatLng([39.7737, 116.4718])
         .setContent("一个湖")
