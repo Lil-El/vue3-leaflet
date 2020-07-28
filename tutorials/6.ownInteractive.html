@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../leaflet/leaflet.css" />
+    <script src="../leaflet/leaflet.js"></script>
+    <style>
+      #map {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      let LatLng = [39.773130218541105, 116.47677887890623];
+      let url =
+        "http://webrd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8";
+      let map = L.map("map").setView(LatLng, 16);
+      L.tileLayer(url, {
+        subdomains: "1234",
+      }).addTo(map);
+      let polygon = L.polygon(
+        [
+          [39.773, 116.473],
+          [39.77, 116.47],
+          [39.77, 116.482],
+        ],
+        {
+          color: "#f00",
+          fileColor: "#f00",
+        }
+      )
+        .bindPopup("Emmmm")
+        .addTo(map);
+
+      polygon.on("click", function (e) {
+        map.fitBounds(polygon.getBounds());
+      });
+      polygon.on("mouseover", function (e) {
+        this.setStyle({
+          color: "#00f",
+          fileColor: "#00f",
+        });
+      });
+      polygon.on("mouseout", function (e) {
+        this.setStyle({
+          color: "#f00",
+          fileColor: "#f00",
+        });
+      });
+    </script>
+  </body>
+</html>
