@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../leaflet/leaflet.css" />
+    <script src="../leaflet/leaflet.js"></script>
+    <script src="./params.js"></script>
+    <style>
+      #map {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      let points1 = L.marker(LatLng1).bindPopup("popup 1");
+      let points2 = L.marker(LatLng2).bindPopup("popup 2");
+      let points3 = L.marker(LatLng3).bindPopup("popup 3");
+      let points = L.layerGroup([points1, points2, points3]);
+      // let points = L.layerGroup();
+      // let p1 = L.marker(LatLng1).bindPopup("1").addTo(points)
+
+      let layer1 = L.tileLayer(url, { subdomains: "1234" });
+      let layer2 = L.tileLayer(url1, { subdomains: "1234" });
+
+      let map = L.map("map", {
+        center: LatLng,
+        zoom: 14,
+        layers: [layer1, layer2],
+      });
+
+      L.control
+        .layers(
+          { "<b style='color:red;'>矢量图</b>": layer1, layer2 },
+          { points }
+        )
+        .addTo(map);
+    </script>
+  </body>
+</html>
