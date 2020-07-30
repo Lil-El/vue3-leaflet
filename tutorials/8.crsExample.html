@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../leaflet/leaflet.css" />
+    <script src="../leaflet/leaflet.js"></script>
+    <script src="./params.js"></script>
+    <style>
+      #map {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CRS:坐标参考系统 -->
+    <div id="map"></div>
+    <script>
+      let map = L.map("map", {
+        crs: L.CRS.Simple,
+        minZoom: -5,
+      });
+      let bounds = [
+        [-26.5, -25],
+        [1021.5, 1023],
+      ];
+      // 2315px
+      let image = L.imageOverlay("./imgs/uqm_map_full.png", bounds).addTo(map);
+      map.fitBounds(bounds);
+
+      map.setView([70, 120], 1);
+
+      var sol = L.latLng(145.0, 175.2);
+      var mizar = L.latLng(130.1,41.6 );
+      var kruegerZ = L.latLng(13.4, 56.5);
+      var deneb = L.latLng(8.3, 218.7);
+
+      L.marker([145.0,175.2]).addTo(map).bindPopup("Sol");
+      L.marker(mizar).addTo(map).bindPopup("Mizar");
+      L.marker(kruegerZ).addTo(map).bindPopup("Krueger-Z");
+      L.marker(deneb).addTo(map).bindPopup("Deneb");
+
+      var travel = L.polyline([sol, deneb]).addTo(map);
+    </script>
+  </body>
+</html>
