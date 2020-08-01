@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../leaflet/leaflet.css" />
+    <script src="../leaflet/leaflet.js"></script>
+    <script src="./params.js"></script>
+    <style>
+      #map {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      let map = L.map("map");
+      L.tileLayer(
+        "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
+        {
+          maxZoom: 18,
+          id: "mapbox/satellite-v9",
+          tileSize: 512,
+          zoomOffset: -1,
+        }
+      ).addTo(map);
+      let videoUrls = [
+        "https://www.mapbox.com/bites/00188/patricia_nasa.webm",
+        "https://www.mapbox.com/bites/00188/patricia_nasa.mp4",
+      ];
+      let bounds = L.latLngBounds([
+        [32, -130],
+        [13, -100],
+      ]);
+      map.fitBounds(bounds);
+      let overlay = L.videoOverlay(videoUrls, bounds, {
+        opacity: 0.8,
+        interactive: false,
+        autoplay: false,
+      });
+      map.addLayer(overlay);
+      overlay.on("load", function () {
+        // 方式1：
+        let pause = L.control();
+        let play = L.control();
+        pause.onAdd = function () {
+          var button = L.DomUtil.create("button");
+          button.innerHTML = "⏸";
+          L.DomEvent.on(button, "click", function () {
+            overlay.getElement().pause();
+          });
+          return button;
+        };
+        play.onAdd = function () {
+          var button = L.DomUtil.create("button");
+          button.innerHTML = "▶️";
+          L.DomEvent.on(button, "click", function () {
+            overlay.getElement().play();
+          });
+          return button;
+        };
+        pause.addTo(map);
+        play.addTo(map);
+        // 方式2：
+        // var MyPauseControl = L.Control.extend({
+        //   onAdd: function () {
+        //     var button = L.DomUtil.create("button");
+        //     button.innerHTML = "⏸";
+        //     L.DomEvent.on(button, "click", function () {
+        //       overlay.getElement().pause();
+        //     });
+        //     return button;
+        //   },
+        // });
+        // var MyPlayControl = L.Control.extend({
+        //   onAdd: function () {
+        //     var button = L.DomUtil.create("button");
+        //     button.innerHTML = "▶️";
+        //     L.DomEvent.on(button, "click", function () {
+        //       overlay.getElement().play();
+        //     });
+        //     return button;
+        //   },
+        // });
+        // let pauseControl = new MyPauseControl().addTo(map);
+        // let playControl = new MyPlayControl().addTo(map);
+      });
+    </script>
+  </body>
+</html>
