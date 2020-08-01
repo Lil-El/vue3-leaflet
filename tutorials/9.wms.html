@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../leaflet/leaflet.css" />
+    <script src="../leaflet/leaflet.js"></script>
+    <script src="./params.js"></script>
+    <style>
+      #map {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      let map = L.map("map", { center: LatLng, zoom: 5, crs: L.CRS.EPSG4326 });
+      /**
+        WMS:web map service;通过专业GIS软件发布地图的流行方式（非GIS用户很少使用）
+        TMS:tiled map service;它是一种地图拼贴标准，更侧重于Web地图，与Leaflet在L.TileLayer中期望的地图拼贴非常相似。
+        用于Web地图图块服务的WMTS是地图图块的标准协议，并提供可直接在L.TileLayer中使用的地图图块。
+      */
+      //Leaflet不理解WMS GetCapabilities文档。您必须创建一个L.TileLayer.WMS层，提供基本的WMS URL，并指定所需的WMS选项。
+      /**
+       * Leaflet中的“层”概念与WMS中的“层”概念不同+
+       * 在wms服务中，包含很多layer，可以在qgix软件中，直观的查看可用的layer名字
+       * TOPO-WMS:显示世界地形
+       * OSM-Overlay-WMS ：显示地点名称
+       * 综合可以变成一个图像
+       */
+      // 显示一个地图：
+      // let wmsLayer = L.tileLayer
+      //   .wms("http://ows.mundialis.de/services/service?", {
+      //     layers: "TOPO-WMS,OSM-Overlay-WMS",
+      //     // layers: "SRTM30-Colored-Hillshade",
+      //     // layers: "TOPO-OSM-WMS",
+      //   })
+      //   .addTo(map);
+
+      // 显示多个地图，通过control
+      let point = L.marker(LatLng).bindPopup("popup 1"); //可以addTo到地图上，也可以添加到layerGroup在控件中控制
+      let p = L.layerGroup([point]);
+      let baseMaps = {
+        Topographt: L.tileLayer.wms(
+          "http://ows.mundialis.de/services/service?",
+          { layers: "TOPO-WMS" }
+        ),
+        Places: L.tileLayer.wms("http://ows.mundialis.de/services/service?", {
+          layers: "OSM-Overlay-WMS",
+        }),
+
+        "Topography, then places": L.tileLayer.wms(
+          "http://ows.mundialis.de/services/service?",
+          {
+            layers: "TOPO-WMS,OSM-Overlay-WMS",
+          }
+        ),
+
+        "Places, then topography": L.tileLayer.wms(
+          "http://ows.mundialis.de/services/service?",
+          {
+            layers: "OSM-Overlay-WMS,TOPO-WMS",
+          }
+        ),
+      };
+      L.control
+        .layers(baseMaps, {
+          p,
+        })
+        .addTo(map);
+      baseMaps.Topographt.addTo(map); //打开页面显示的地图
+      /**
+       * Leaflet支持的坐标系统非常少：CRS：3857，CRS：3395和CRS：4326（请参阅L.CRS文档）。
+          如果您的WMS服务不在这些坐标系中提供图像，则可能需要使用Proj4Leaflet在Leaflet中使用其他坐标系。
+          除此之外，在初始化地图时只需使用正确的CRS，添加的任何WMS图层都将使用它
+      */
+    </script>
+  </body>
+</html>
