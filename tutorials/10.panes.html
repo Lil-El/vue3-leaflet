@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../leaflet/leaflet.css" />
+    <script src="../leaflet/leaflet.js"></script>
+    <script src="./params.js"></script>
+    <style>
+      #map {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://leafletjs.com/examples/map-panes/eu-countries.js"></script>
+    <script>
+      let map = L.map("map", { center: LatLng, zoom: 5 });
+      map.createPane("labels");
+      map.getPane("labels").style.zIndex = 650;
+      map.getPane("labels").style.pointEvents = "none";
+      let position = L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
+      ).addTo(map);
+      // Geojson的图层会覆盖label，所以创建pane，将label置于geojson之上
+      var positronLabels = L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png",
+        {
+          pane: "labels",
+        }
+      ).addTo(map);
+      let geoJson = L.geoJson(euCountries).addTo(map);
+      geoJson.eachLayer(function (layer) {
+        layer.bindPopup(layer.feature.properties.name);
+      });
+      map.fitBounds(geoJson.getBounds());
+    </script>
+  </body>
+</html>
