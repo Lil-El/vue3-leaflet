@@ -1,5 +1,5 @@
 {
-  "name": "webGIS_leaflet",
+  "name": "WebGIS_leaflet",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,8 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "leaflet": "^1.7.1",
-    "vue": "^3.0.0-0"
+    "vue": "^3.0.0-0",
+    "vue-router": "^4.0.0-beta.12"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

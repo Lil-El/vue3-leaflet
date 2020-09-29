@@ -1,19 +1,20 @@
 # leaflet
 
 ## Project setup
+
 ```
 npm install
+npm install leaflet
+npm install vue-router@next
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Folder
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- **static**：[Leaflet - `tutorial`](‘https://leafletjs.com/examples.html’) study
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Features
+
+- 台风实时路径实现 ([浙江水利]('http://typhoon.zjwater.gov.cn/default.aspx))
+  - 地图图层切换（基础底图&影像图）
+  - 台风路径绘制及动态绘制路径效果。
+  - 台风图标 Marker 及气泡信息弹窗
