@@ -14,6 +14,11 @@ let router = createRouter({
       path: "/TyphoonRoute",
       component: Typhoon,
     },
+    {
+      name: "旅游相册",
+      path: "/TravelAlbum",
+      component: () => import("../views/travelAlbum"),
+    },
   ],
 });
 
