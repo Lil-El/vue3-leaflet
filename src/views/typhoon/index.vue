@@ -31,6 +31,8 @@ let streets = L.tileLayer(url, { id: "mapbox.streets", attribution: "YXD" });
 let map;
 let lineLayer;
 let marker;
+// 获取台风信息，详细见./data.js文件数据
+let land = typhoonTestData[0]["land"][0];
 let typhoonIcon = L.icon({
   iconUrl: img,
   iconSize: [28, 28],
@@ -74,7 +76,7 @@ function animateDrawLine(allpoints) {
       lineLayer = L.polyline(drawPoints, { color: "blue" }).addTo(map);
       // 根据最新数组最后一个点绘制marker
       if (count === length) {
-        map.removeLayer(marker);
+        marker && map.removeLayer(marker);
         // 如果是台风最后一个点，则自动popup弹窗
         marker = L.marker(drawPoints[length - 1], { icon: typhoonIcon })
           .addTo(map)
