@@ -19,6 +19,11 @@ let router = createRouter({
       path: "/TravelAlbum",
       component: () => import("../views/travelAlbum"),
     },
+    {
+      name: "雨水分布",
+      path: "/RainLayer",
+      component: () => import("../views/RainLayer"),
+    },
   ],
 });
 

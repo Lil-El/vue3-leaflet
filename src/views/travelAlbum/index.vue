@@ -8,6 +8,7 @@
 import { onMounted } from "vue";
 import L from "leaflet";
 import data from "./data.json";
+import Viewer from "viewerjs";
 export default {
   setup() {
     console.log("1setup");
@@ -88,7 +89,7 @@ export default {
     generatePicHtml(imgs) {
       imgs = imgs || [];
       // 动态拼接html字符串
-      var _html = '<div id="galley"><ul class="pictures"  onclick="viewPic()">';
+      var _html = `<div id="galley"><ul class="pictures" onclick=viewPic()">`;
       // 循环图片数组，动态拼接项目的相对地址url
       for (var i = 0; i < imgs.length; i++) {
         var url = "./travel/pictures/" + imgs[i];
@@ -112,6 +113,7 @@ export default {
     },
     /**
      * veiwerjs预览大图
+     * 暂无法使用，同时应该放到全局上
      */
     viewPic() {
       var galley = document.getElementById("galley");
@@ -188,7 +190,7 @@ html {
   list-style: none;
   max-width: 30rem;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   white-space: pre-wrap;
   flex-wrap: wrap;
 }
