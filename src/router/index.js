@@ -24,6 +24,11 @@ let router = createRouter({
       path: "/RainLayer",
       component: () => import("../views/RainLayer"),
     },
+    {
+      name: "Vue3",
+      path: "/Vue3",
+      component: () => import("../views/vue3"),
+    },
   ],
 });
 
