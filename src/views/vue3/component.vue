@@ -9,11 +9,10 @@
 import { inject, reactive } from "vue";
 export default {
   setup() {
-    const state = reactive({ name: "TEST" });
-    const parent = inject("parent");
+    const parent = inject("parent3");
     return {
       handleClick() {
-        console.log(parent());
+        console.log(parent);
       },
     };
   },

@@ -17,7 +17,11 @@ export default {
       name: "yxd",
       title: props.title,
     });
+    let staticObj = { name: "1" };
+    // provide 函数 或 对象；inject都可以响应
     provide("parent", () => state.name);
+    provide("parent2", state);
+    provide("parent3", staticObj);
 
     watch(
       () => {
@@ -33,6 +37,7 @@ export default {
       setTimeout(() => {
         emit("update:title", "Vue3 Title Change");
         state.name = "ywd";
+        staticObj.name = "2";
       }, 1000);
       // console.log("2onMounted");
     });

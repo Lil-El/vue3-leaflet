@@ -21,3 +21,4 @@ npm install vue-router@next
 - 旅游相册
 - 雨水分布
 - Vue3
+  - provide - inject
