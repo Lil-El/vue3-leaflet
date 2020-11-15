@@ -6,9 +6,11 @@
 </template>
 
 <script>
-import { inject, reactive } from "vue";
+import { inject, reactive, getCurrentInstance } from "vue";
 export default {
-  setup() {
+  props: ["modelValue"], // 使用modelValue获取v-model的值（固定的属性名）
+  setup(props) {
+    console.log(props, getCurrentInstance());
     const parent = inject("parent3");
     return {
       handleClick() {

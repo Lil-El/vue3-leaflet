@@ -22,3 +22,4 @@ npm install vue-router@next
 - 雨水分布
 - Vue3
   - provide - inject
+  - v-model : modelValue

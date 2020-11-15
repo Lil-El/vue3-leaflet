@@ -2,7 +2,7 @@
   <div>
     <h3>{{ state.title }}</h3>
     <input type="text" v-model="state.name" />
-    <child />
+    <child v-model="state.title" />
   </div>
 </template>
 <script>
