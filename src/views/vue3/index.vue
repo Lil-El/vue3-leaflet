@@ -41,7 +41,9 @@ export default {
       }, 1000);
       // console.log("2onMounted");
     });
-    return { state };
+    return {
+      state,
+    };
   },
   created() {
     // console.log("1create");
